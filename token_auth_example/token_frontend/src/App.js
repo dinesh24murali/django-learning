@@ -24,7 +24,7 @@ function App() {
       });
   }
 
-  useEffect(() => {
+  const callNormalApi = () => {
     axios.post('http://localhost:9852/login/', {
       username: 'admin',
       password: 'admin'
@@ -37,6 +37,33 @@ function App() {
       .catch((res) => {
         console.log(res);
       });
+  }
+
+  const callGraphQL = () => {
+    axios.post('http://localhost:9852/graphql', {
+      query: `query {
+        allBooks {
+          id
+          title
+          author
+          yearPublished
+          review
+        }
+      }`,
+      variables: {}
+    })
+      .then((res) => {
+        const tr = res;
+        debugger;
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+  }
+
+  useEffect(() => {
+    callNormalApi();
+    // callGraphQL();
   }, []);
 
   return (
